@@ -488,10 +488,10 @@ module Agents
       if interpolated['changes_only'] == 'true'
         if payload.to_s != memory['last_status']
           if !memory['last_status'].nil?
-            last_status = memory['last_status']
-#            last_status = memory['last_status'].gsub("=>", ": ").gsub(": nil", ": null")
+            last_status = memory['last_status'].gsub("=>", ": ").gsub(": nil", ": null")
             log "before parse"
             last_status = JSON.parse(last_status)
+            log "after parse"
           end
           payload['buckets'].each do |event|
             found = false
@@ -500,8 +500,8 @@ module Agents
               log event
             end
             if !memory['last_status'].nil?
-              last_status['buckets']['contentList'].each do |eventbis|
-                if event['paymentDate'] == eventbis['paymentDate']
+              last_status['buckets'].each do |eventbis|
+                if event == eventbis
                   found = true
                 end
                 if interpolated['debug'] == 'true'
