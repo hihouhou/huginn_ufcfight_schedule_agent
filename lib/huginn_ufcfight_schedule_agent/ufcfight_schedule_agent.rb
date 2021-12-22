@@ -441,7 +441,8 @@ module Agents
         refresh(used_token)
         bearer = JSON.parse(memory['last_refresh_token'])['authorisationToken']
       else
-        used_token = JSON.parse(memory['last_refresh_token'])['refresh_token']
+        used_token = interpolated['refresh_token']
+#        used_token = JSON.parse(memory['last_refresh_token']['refresh_token'])
         refresh(used_token)
         bearer = JSON.parse(memory['last_refresh_token'])['authorisationToken']
       end
